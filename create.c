@@ -49,7 +49,7 @@ int main(){
 	FILE *arq = NULL;
 	int id =  1;
 	
-	arq = fopen("files/fs_tabela.dat", "a+");
+	/*arq = fopen("files/fs_tabela.dat", "a+");
 	
 	char lnome[T] = "cliente\0";
 	char fnome[T] = "000001.dat\0";
@@ -103,7 +103,7 @@ int main(){
 	
 	
 	
-	fclose(arq);
+	fclose(arq);*/
 	
 	
 	//A partir daqui criação do fs_coluna
@@ -218,7 +218,7 @@ int main(){
 	
 	//criação de uma base de dados
 		
-	/*arq = fopen("files/data/000001.dat", "a+");
+	arq = fopen("files/data/000001.dat", "a+");
 	
 	struct dados {
 		char nome[20];
@@ -300,7 +300,7 @@ int main(){
 		}
 		else{
 			strcpy(d2[n].nome, "Mister Mage\0"); 
-			strcpy(d2[n].origem, "Lando of Snow\0");
+			strcpy(d2[n].origem, "Land of Snow\0");
 			d2[n].level = 51;
 			d2[n].hplevel = 753;
 			strcpy(d2[n].classe, "Human\0");
@@ -348,7 +348,7 @@ int main(){
 	
 		n++;
 	}
-	fclose(arq);*/
+	fclose(arq);
 	
 	
 	return 0;

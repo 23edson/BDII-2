@@ -37,7 +37,7 @@ int main(int rg, char *arq[]){
 
     //showBuffer(buffer, campos, fs_coluna);
 
-   showTupleBuffer(buffer, campos, fs_coluna, 0, 1);
+   showTupleBuffer(buffer, campos, fs_coluna, 0, 4);
 
     return 0;
 }
