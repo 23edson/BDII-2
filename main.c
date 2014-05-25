@@ -9,11 +9,13 @@ int main(int rg, char *arq[]){
 
 	struct OBJ *table =leTabela(fs_tabela,Table_name, fs_coluna);
 	
-	/*int foo;
-	printf("id: %d \n", table->id);
+	/*int foo;	
+	printf("MAINid: %d \n", table->id);
 	puts(table->lnome);
 	puts(table->fnome);
 	puts(table->dir);*/
+	//puts(fs_coluna);
+	
 	struct CAMPOS *campos = leMetaDados(fs_coluna, table->id); // Traz pra memória o esquema dos dados //ok
 	/*printf("\nid: %d \n", campos[0].id);
 		puts(campos[0].nome);
@@ -29,13 +31,13 @@ int main(int rg, char *arq[]){
 		printf("\nid: %d \n", campos[2].id);
 		puts(campos[2].nome);
 		printf("TIPO  %c\n", campos[2].tipo);
-		printf("TAAMM: %d\n", campos[2].tamanho);
-		int tf = *CAMPOS_TAM ;*/
+		printf("TAAMM: %d\n", campos[2].tamanho);*/
+		//int tf = *CAMPOS_TAM ;
 	carregaDados(buffer,fs_coluna, campos,table);
 
     //showBuffer(buffer, campos, fs_coluna);
 
-    showTupleBuffer(buffer, campos, fs_coluna, 0, 3);
+   showTupleBuffer(buffer, campos, fs_coluna, 0, 1);
 
     return 0;
 }

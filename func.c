@@ -34,10 +34,12 @@ struct OBJ *leTabela(char *fs_tabela, char *Table_name, char *fs_coluna){ // Ret
 		fread(table->lnome,sizeof(char), CONST1, tabela);
 		fread(table->fnome,sizeof(char), CONST1, tabela);
 		fread(table->dir,sizeof(char), CONST1, tabela);
+		fseek(tabela,-1,SEEK_CUR);
 	}while(strcmp(table->lnome,Table_name)!=0 && (endloop = fgetc(tabela) != EOF));
-	if(strcmp(table->lnome, Table_name));
+	if(strcmp(table->lnome, Table_name)){
+		puts("errro");}
 		//return TABLE_NOT_FOUND;
-		
+	
 	/*int foo;
 	printf("id: %d \n", table.id);
 	puts(table.lnome);
@@ -47,6 +49,35 @@ struct OBJ *leTabela(char *fs_tabela, char *Table_name, char *fs_coluna){ // Ret
 	fclose(tabela);
 	return table;
 }
+int positionOnFile(char *meta, int id){
+	FILE *fs_coluna = NULL;
+	
+	int pula = 0;
+	int counter1 = 0;
+	fs_coluna = fopen(meta, "r");
+
+    if (fs_coluna == NULL)
+        exit(0);
+    fseek(fs_coluna,0,SEEK_END);
+	long pos = ftell(fs_coluna); //pega o tamanho do arquivo
+	rewind(fs_coluna);
+	
+	while(pula < pos){
+			fread(&counter1, sizeof(int),1,fs_coluna);
+			//pula = pula + sizeof(int);
+			if(counter1 == id){
+				return ftell(fs_coluna) - sizeof(int);
+				
+			}
+			else{
+			//pula++;
+				fseek(fs_coluna,CAMPOS_TAM - sizeof(int),SEEK_CUR); 
+				pula += CAMPOS_TAM;
+			}
+	}
+	int ERRO = -26;
+	return ERRO;
+}
 struct CAMPOS *leMetaDados(char *fs_coluna, int id){
 	
 	FILE *metadados;
@@ -55,14 +86,26 @@ struct CAMPOS *leMetaDados(char *fs_coluna, int id){
 	
 	if(!id){
 		}
+	//printf("idddd  %d", id);
+	
+	qtdCampos = qtCampos(fs_coluna, id);//printf("qt : %d",qtdCampos);
+	//puts("here");
+	if(!(metadados = fopen(fs_coluna, "r"))){
+		puts("err");
+		return NULL;
+	}
+		 // Abre os metadados armazenados em meta
+	
+	
+	if (metadados == NULL){
 		
-	
-	qtdCampos = qtCampos(fs_coluna, id);// printf("qt : %d",qtdCampos);
-	
-	metadados = fopen(fs_coluna, "r"); // Abre os metadados armazenados em meta
-
-	if (metadados == NULL)
-       exit(0);
+		puts("erro");
+       return;
+   }
+   
+   int posi = positionOnFile(fs_coluna, id);
+   fseek(metadados, posi, SEEK_CUR);
+   
     if(qtdCampos) // Lê o primeiro inteiro que representa a quantidade de campos da tabela.
     {
 	   int t;
@@ -134,37 +177,40 @@ int qtCampos(char *meta, int id){ // Retorna a quantidade de campos do esquema
     int counter1 = 0;
     char endloop;
    // struct CAMPOS g;
-    
+   // puts(meta);
     //printf("sizeof %d", sizeof(int));
     fs_coluna = fopen(meta, "r");
 
     if (fs_coluna == NULL)
         exit(0);
-    
     fseek(fs_coluna,0,SEEK_END);
 	long pos = ftell(fs_coluna); //pega o tamanho do arquivo
 	rewind(fs_coluna);
+    
 		
      
-     counter1 = id;
+     //counter1 = id;
      int condicao = 1;
      while(condicao && pula < pos){
 			fread(&counter1, sizeof(int),1,fs_coluna);
 			//pula = pula + sizeof(int);
-			if(counter1 != id){
-				condicao = 0;
-				break;
+			if(counter1 == id){
+				qtdCampos++;
+				fseek(fs_coluna,CAMPOS_TAM - sizeof(int),SEEK_CUR); 
+				pula += CAMPOS_TAM;
+				
 			}
+			else{
 			//pula++;
-			fseek(fs_coluna,CAMPOS_TAM - sizeof(int),SEEK_CUR); 
-			qtdCampos++;
-			pula += CAMPOS_TAM;
+				fseek(fs_coluna,CAMPOS_TAM - sizeof(int),SEEK_CUR); 
+				pula += CAMPOS_TAM;
+			}
 	 }
 	   
         
    // fread(&qtdCampos, sizeof(int), 1, metadados); //Lê o primeiro inteiro que representa a quantidade de campos da tabela.
     fclose(fs_coluna);
-
+	
     return qtdCampos;
 }
 void leTupla(struct CAMPOS *campos, char *fs_coluna, char *linha){ //Lê uma tupla da memória
@@ -207,6 +253,7 @@ char *getTupla(struct CAMPOS *campos, char *meta, struct OBJ *tabela, int from){
     arquivo[0] = '\0';
     strcat(arquivo, tabela->dir);
     strcat(arquivo, tabela->fnome);
+    //printf("arq:%s", arquivo);
 
     dados = fopen(arquivo, "r");
     
