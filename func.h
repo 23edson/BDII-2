@@ -10,13 +10,18 @@ Compilado com gcc version 4.6.3
 
 #define BP 512
 #define SIZE 1024
-#define FILE_NOT_FOUND -1
-#define ERRO_ALOCA -2
-#define ERRO_LEITURA -3
-#define TUPLE_NOT_FOUND -4
-#define BUFFER_CHEIO -5
-#define TABLE_NOT_FOUND -6
-#define OKAY -7
+#define FS_TABELA_NOT_FOUND -1
+#define FS_COLUNA_NOT_FOUND -2
+#define DATA_FILE_NOT_FOUND -3
+#define OUT_OF_MEMORY -4
+#define ERRO_LEITURA -5
+#define TUPLE_NOT_FOUND -6
+#define BUFFER_CHEIO -7
+#define TABLE_NOT_FOUND -8
+#define PAGE_INVALIDA -9
+#define EMPTY_PAGE -10
+#define GENERIC_ERROR -11
+#define OKAY -12
 
 struct CAMPOS
  {
@@ -42,18 +47,19 @@ struct OBJ {
 };
 
 
-struct OBJ *leTabela(char *fs_tabela, char *Table_name, char *fs_coluna); //Identifica a estrutura da tabela
-struct CAMPOS *leMetaDados(char *fs_coluna, int id); //Identifica a estrutura do metadados 
+int leTabela(struct OBJ **table,char *fs_tabela, char *Table_name, char *fs_coluna); //Identifica a estrutura da tabela
+int positionOnFile(char *meta, int id);
+int leMetaDados(struct CAMPOS **campos,char *fs_coluna, struct OBJ *table); //Identifica a estrutura do metadados
 int tamTupla(struct CAMPOS *campos, char *meta); //tamanho de uma tupla (tamanho dos atributos somados)
-void leTupla(struct CAMPOS *campos, char *fs_coluna, char *linha);//impressão na tela 
+int leTupla(struct CAMPOS *campos, char *fs_coluna, char *linha);//impressão na tela
 int qtCampos(char *meta, int id); //Quantidade campos de uma tablea
-char *getTupla(struct CAMPOS *campos, char *meta, struct OBJ *tabela, int from); //Carrega uma tupla  do arquivo de dados em forma de string 
-void carregaDados(struct page *buffer, char *meta, struct CAMPOS *campos, struct OBJ *tabela); //Função principal entre CARREGAR TUPLA E COLOCAR NO BUFFER
-struct page *inicializaBuffer(); //Valores default para cada pagina
+int getTupla(char *linha,struct CAMPOS *campos, char *meta, struct OBJ *tabela, int from); //Carrega uma tupla  do arquivo de dados em forma de string
+int carregaDados(struct page *buffer, char *meta, struct CAMPOS *campos, struct OBJ *tabela); //Função principal entre CARREGAR TUPLA E COLOCAR NO BUFFER
+int inicializaBuffer(struct page **buffer); //Valores default para cada pagina
 void setTupla(struct page *buffer,char *tupla, int tam, int pos); //Função complementar de colocaTuplaBuffer
-void colocaTuplaBuffer(struct page *buffer, char *tupla, struct CAMPOS *campos, char *meta); //Controle do buffer e páginas
-char *strcop(char *data, int k, int tam); //Copia uma tupla do buffer para a impressao na tela
-void showBuffer(struct page *buffer, struct CAMPOS *campos, char *meta); //Funções de IMPRESSÃO
-void showTupleBuffer(struct page *buffer, struct CAMPOS *campos, char *meta, int pg, int rg);
+int colocaTuplaBuffer(struct page *buffer, char *tupla, struct CAMPOS *campos, char *meta); //Controle do buffer e páginas
+char *strcop(char *data, int pos, int tam); //Copia uma tupla do buffer para a impressao na tela
+int showBuffer(struct page *buffer, struct CAMPOS *campos, char *meta); //Funções de IMPRESSÃO
+int showTupleBuffer(struct page *buffer, struct CAMPOS *campos, char *meta, int pg, int rg);
 
 
