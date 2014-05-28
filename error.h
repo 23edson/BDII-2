@@ -1,0 +1,13 @@
+
+#define FS_TABELA_NOT_FOUND -1
+#define FS_COLUNA_NOT_FOUND -2
+#define DATA_FILE_NOT_FOUND -3
+#define OUT_OF_MEMORY -4
+#define ERRO_LEITURA -5
+#define TUPLE_NOT_FOUND -6
+#define BUFFER_CHEIO -7
+#define TABLE_NOT_FOUND -8
+#define PAGE_INVALIDA -9
+#define EMPTY_PAGE -10
+#define GENERIC_ERROR -11
+#define OKAY -12

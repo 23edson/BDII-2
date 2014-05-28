@@ -9,6 +9,7 @@ Eu criei @2  exemplo de tabela :
 	-------------------------------------------
 	1  |  cliente     |  000001.dat | files/data/
 	2  |  personagem  |  000002.dat | files/data/
+	3  |  carro       |  000003.dat | files/data/
 
 	no arquivo fs_coluna.dat esta organizado assim :
 
@@ -22,6 +23,11 @@ Eu criei @2  exemplo de tabela :
      2 |       level      |   I     |  4
      2 |       Hplevel    |   I     |  4
      2 |       Classe     |   S     |  20
+     3 |       nome       |   S     |  20
+     3 |       chassi     |   S     |  50
+     3 |       fabricante |   S     |  20
+     3 |       anofab.    |   I     |  4
+     3 |       potencia   |   D     |  8
 
 	Arquivo 000001.dat :
 
@@ -29,7 +35,7 @@ Eu criei @2  exemplo de tabela :
 	---------------------
 	Iron  | R. Oito| 450
 	Steel | R. Nove| 670 
-	Silver| R. Dez | 552
+	Silver| R. Dez | 552	
 	
 	Arquivo 000002.dat
 
@@ -41,13 +47,24 @@ Eu criei @2  exemplo de tabela :
 	Abyssal Demon|Underworld  |150    |2009     | Demon
 	Mister Mage  |Land of Snow| 51    |753      | Human
 
+	Arquivo 000003.dat
+
+	nome    | chassi       | fabricante  | anofab | potencia
+	--------------------------------------------------------
+	Golf    | 66ddf555www62| Volkswagen  | 2010   | 1.8
+	Sandero | kk8080dfww101| Renault     | 2013   | 1.6
+	Hb20    | mon65dd202758| Hyundai     | 2013   | 1.8
+	Civic   | 2255gh3qw22rt| Honda       | 2012   | 2.0
+	Corolla | oo2021vb26741| Toyota      | 2012   | 1.4
+	Ka      | nn65df555512s| Ford        | 2010   | 1.0
+	Classic | 23125la55vo11| Chevrolet   | 2013   | 1.0
 
 	 O programa lê o fs_tabela.dat e o fs_coluna.dat e arquivo de dados
 	coloca no buffer e imprime.
 
 	Acredito que as funcionalidades básicas já estão ok.
 
-	Falta ainda fazer tratamento de erros.
+	
 
 	para executar usa 
 

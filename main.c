@@ -1,5 +1,5 @@
 #include "func.h"
-
+#include "error.h"
 int main(int rg, char *arq[]){
     //main demonstrativa, para mais detalhes consulte arquivo LEIAME.txt e func.c
 
@@ -12,30 +12,30 @@ int main(int rg, char *arq[]){
 	
 	
 	if(!inicializaBuffer(&buffer)== OKAY){
-		printf("erro : %d", error);
+		printf("erro > %d  .SEM MEMORIA\n", error);
 		return -1;
 	}
 	
 	error = leTabela(&table,fs_tabela,Table_name, fs_coluna);	
 	if(error != OKAY){
-		printf("erro : %d", error);
+		printf("erro > %d  .LEITURA fs_tabela\n", error);
 		return -1;
 	}
 	
 	error = leMetaDados(&campos,fs_coluna, table);
 	if(error != OKAY){
-		printf("erro : %d", error);
+		printf("erro > %d   .LEITURA fs_coluna\n", error);
 		return -1;
 	}
 	
 	error = carregaDados(buffer,fs_coluna, campos,table);
 	if(error != OKAY){
-		printf("erro: %d",error);
+		printf("erro > %d   .LOAD DATA\n",error);
 		return -1;
 	}
-    error = showTupleBuffer(buffer, campos, fs_coluna, -5, 5);
+    error = showTupleBuffer(buffer, campos, fs_coluna, 0, 2);
 	if(error != OKAY){
-		printf("erro: %d",error);
+		printf("erro > %d   .PRINT TUPLA\n",error);
 	}
     return 0;
 }

@@ -49,7 +49,7 @@ int main(){
 	FILE *arq = NULL;
 	int id =  1;
 	
-	/*arq = fopen("files/fs_tabela.dat", "a+");
+	arq = fopen("files/fs_tabela.dat", "w+");
 	
 	char lnome[T] = "cliente\0";
 	char fnome[T] = "000001.dat\0";
@@ -58,8 +58,13 @@ int main(){
 	char lnome3[T] = "personagem\0";
 	char fnome3[T] = "000002.dat\0";
 	char dir3[T] = "files/data/\0";
+
+	char lnome6[T] = "carro\0";
+	char fnome6[T] = "000003.dat\0";
+	char dir6[T] = "files/data/\0";
+	
 	int menor = 0;
-	while(menor < 2){
+	while(menor < 3){
 		if(menor == 1){
 			id++;
 			fwrite(&id,sizeof(int), 1, arq);
@@ -67,6 +72,13 @@ int main(){
 			fwrite(fnome3,sizeof(char),T, arq);
 			fwrite(dir3,sizeof(char),T, arq);
 		}
+		else if(menor == 2){
+			id++;
+			fwrite(&id,sizeof(int), 1, arq);
+			fwrite(lnome6,sizeof(char),T, arq);
+			fwrite(fnome6,sizeof(char),T, arq);
+			fwrite(dir6,sizeof(char),T, arq);
+		}		
 		fwrite(&id,sizeof(int), 1, arq);
 		fwrite(lnome,sizeof(char),T, arq);
 		fwrite(fnome,sizeof(char),T, arq);
@@ -86,7 +98,7 @@ int main(){
 	
 	menor = 0;
 
-	while(menor < 2){
+	while(menor < 3){
 		fread(&id1, sizeof(int),1, arq);
 		fread(lnome1, sizeof(char),30,arq);
 		fread(fnome1,sizeof(char),30, arq);
@@ -103,7 +115,7 @@ int main(){
 	
 	
 	
-	fclose(arq);*/
+	fclose(arq);
 	
 	
 	//A partir daqui criação do fs_coluna
