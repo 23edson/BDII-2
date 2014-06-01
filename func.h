@@ -39,6 +39,7 @@ struct OBJ {
 int leTabela(struct OBJ **table,char *fs_tabela, char *Table_name, char *fs_coluna); //Identifica a estrutura da tabela
 int leMetaDados(struct CAMPOS **campos,char *fs_coluna, struct OBJ *table); //Identifica a estrutura do metadados
 int inicializaBuffer(struct page **buffer); //Valores default para cada pagina
+int carregaDados(struct page *buffer, char *meta, struct CAMPOS *campos, struct OBJ *tabela); // Carrega dados para o buffer
 //Funções de IMPRESSÃO
 int showBuffer(struct page *buffer, struct CAMPOS *campos, char *meta); //Mostra as paginas do buffer 
 int showTupleBuffer(struct page *buffer, struct CAMPOS *campos, char *meta, int pg, int rg); //mostra um registro especifico em um página específica

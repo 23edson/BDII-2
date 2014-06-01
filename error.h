@@ -9,5 +9,7 @@
 #define TABLE_NOT_FOUND -8
 #define PAGE_INVALIDA -9
 #define EMPTY_PAGE -10
-#define GENERIC_ERROR -11
-#define OKAY -12
+#define GENERIC_ERROR -11 //Erro não tratado
+#define OKAY -12 //OKAY se não ocorreu nenhum erro
+
+//ERROS DEFINIDOS COMO NÚMEROS NEGATIVOS

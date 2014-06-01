@@ -1,14 +1,14 @@
 #include "func.h"
-#include "error.h"
+#include "error.h" //incluir "error.h" aqui é Opcional
 int main(int rg, char *arq[]){
-    //main demonstrativa, para mais detalhes consulte arquivo LEIAME.txt e func.c
+    //main demonstrativa, para mais detalhes consulte arquivo README.md e func.c
 
    char *fs_tabela = arq[1], *Table_name = arq[2], *fs_coluna = arq[3]; //Faça a atribuição conforme a ordem de entrada na execução pela linha de comando
 
     struct page *buffer;//ok
-	struct CAMPOS *campos;
-	struct OBJ *table;
-	int error;
+    struct CAMPOS *campos;
+    struct OBJ *table;
+    int error;
 	
 	
 	if(!inicializaBuffer(&buffer)== OKAY){
