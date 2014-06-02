@@ -50,15 +50,20 @@ int leTabela(struct OBJ **table,char *fs_tabela, char *Table_name, char *fs_colu
 		return OUT_OF_MEMORY;
 	}
 	
-	char endloop;
+	int endloop = 0;
+	long maxTam;
+	fseek(tabela,0,SEEK_END);
+	maxTam = ftell(tabela);
+	rewind(tabela);
 
 	do {
 		fread(&(*table)->id, sizeof(int), 1, tabela); 
-		fread((*table)->lnome,sizeof(char), CONST1, tabela);;
+		fread((*table)->lnome,sizeof(char), CONST1, tabela);puts((*table)->lnome);
 		fread((*table)->fnome,sizeof(char), CONST1, tabela); 
 		fread((*table)->dir,sizeof(char), CONST1, tabela);
-		fseek(tabela,-1,SEEK_CUR);
-	}while(strcmp((*table)->lnome,Table_name)!=0 && (endloop = fgetc(tabela) != EOF));
+		//fseek(tabela,-1,SEEK_CUR);
+	}while(strcmp((*table)->lnome,Table_name)!=0 && ((endloop+= OBJ_TAM-1) < maxTam));
+	
 	if(strcmp((*table)->lnome, Table_name)){
 		return TABLE_NOT_FOUND;
 	}
