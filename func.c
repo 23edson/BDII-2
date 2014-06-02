@@ -58,7 +58,7 @@ int leTabela(struct OBJ **table,char *fs_tabela, char *Table_name, char *fs_colu
 
 	do {
 		fread(&(*table)->id, sizeof(int), 1, tabela); 
-		fread((*table)->lnome,sizeof(char), CONST1, tabela);puts((*table)->lnome);
+		fread((*table)->lnome,sizeof(char), CONST1, tabela);
 		fread((*table)->fnome,sizeof(char), CONST1, tabela); 
 		fread((*table)->dir,sizeof(char), CONST1, tabela);
 		//fseek(tabela,-1,SEEK_CUR);
